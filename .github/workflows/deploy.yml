@@ -15,7 +15,7 @@ jobs:
           host: 44.211.150.154
           username: ubuntu
           key: ${{ secrets.SECRETS_KEY_ANDFN}}
-          port: 22
+          #port: 22
           script: |
             cd /home/ubuntu/mallia
             git pull origin main
@@ -25,7 +25,7 @@ jobs:
           host: 44.211.150.154
           username: ubuntu
           key: ${{ secrets.SECRETS_KEY_ANDFN}}
-          port: 22
+          #port: 22
           script: |
             cd /home/ubuntu/mallia
             ls
