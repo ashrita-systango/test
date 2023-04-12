@@ -12,7 +12,7 @@ jobs:
       - name: SSH into EC2
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.EC2_HOST }}
+          host: 44.211.150.154
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.SECRETS_KEY_ANDFN}}
           port: ${{ secrets.EC2_PORT }}
