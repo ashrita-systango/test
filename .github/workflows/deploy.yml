@@ -1,31 +1,43 @@
-name: Deploy to EC2
+name: ssh-into-aws-ec2
+
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+#  bucket_name: "<example-bucket-name>"
+  AWS_REGION: us-east-1
+  REMOTE_HOST: "!!replace with your aws remote host"
+  REMOTE_USER: "!!replace with your ec2 username"
+
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: SSH into EC2
-        uses: appleboy/ssh-action@master
-        with:
-          host: 44.211.150.154
-          username: ubuntu
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
-          script: |
-            cd /home/ubuntu/mallia
-            git pull origin main
-      - name: Start Docker container
-        uses: appleboy/ssh-action@master
-        with:
-          host: 44.211.150.154
-          username: ubuntu
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
-          script: |
-            cd /home/ubuntu/mallia
-            docker-compose up -d 
+      - name: Git clone the repository
+        uses: actions/checkout@v3
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/github-actions-key
+          chmod 600 ~/.ssh/github-actions-key
+          cat >>~/.ssh/config <<END
+          Host ec2
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/github-actions-key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_HOST: ${{ env.REMOTE_HOST }}
+          SSH_USER: ${{ env.REMOTE_USER }}
+          SSH_KEY: ${{ secrets.SECRETS_KEY_NAME }} 
+      - name: List home directory
+        run: ssh ec2 'ls -la'
