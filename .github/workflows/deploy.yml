@@ -14,7 +14,7 @@ jobs:
         with:
           host: 44.211.150.154
           username: ubuntu
-          key: ${{ secrets.SECRETS_KEY_NAME }}
+          key: ${{ secrets.SECRETS_KEY_NAME}}
           port: 22
           script: |
             cd /home/ubuntu/mallia
@@ -24,7 +24,7 @@ jobs:
         with:
           host: 44.211.150.154
           username: ubuntu
-          key: ${{ secrets.SECRETS_KEY_NAME }}
+          key: ${{ secrets.SECRETS_KEY_NAME}}
           port: 22
           script: |
             cd /home/ubuntu/mallia
