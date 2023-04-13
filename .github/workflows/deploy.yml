@@ -15,5 +15,5 @@ jobs:
         run: |
             cd /home/ubuntu/mallia
             ls
-            git pull origin main
+#            git pull origin main
             docker-compose up -d
