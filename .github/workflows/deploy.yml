@@ -6,9 +6,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: 
-      - ubuntu-latest
-      - label-test-1
+    runs-on: label-test-1
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
