@@ -6,17 +6,14 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: 
+      - ubuntu-latest
+      - label-test-1
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: SSH into EC2
         uses: appleboy/ssh-action@master
-        with:
-          host: 44.211.150.154
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.SECRETS_KEY_ANDFN}}
-          port: ${{ secrets.EC2_PORT }}
           script: |
             cd /home/ubuntu/mallia
             ls
