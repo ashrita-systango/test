@@ -11,9 +11,4 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: SSH into EC2
-#        uses: appleboy/ssh-action@master
-        run: |
-            cd /home/ubuntu/mallia
-            ls
-#            git pull origin main
-            docker-compose up -d
+        uses: appleboy/ssh-action@master
